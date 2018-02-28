@@ -1,6 +1,5 @@
 package com.example.wanghy.restauranthygienechecker;
 
-import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,8 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener
-        ,LandingFragment.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +42,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
-
-        Fragment fragment = new LandingFragment();
-
-        transaction.replace(R.id.main_frame,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
     }
 
     @Override
@@ -117,10 +106,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }
