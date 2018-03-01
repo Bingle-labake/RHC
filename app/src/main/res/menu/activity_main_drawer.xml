@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_simple_search"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_magnifier"
             android:title="Simple Search" />
         <item
             android:id="@+id/nav_location_search"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_placeholder"
             android:title="Location Search" />
         <item
             android:id="@+id/nav_filter_search"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_filter_results_button"
             android:title="Filter Search" />
         <item
             android:id="@+id/nav_favorite"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_like"
             android:title="Favorite" />
     </group>
 
