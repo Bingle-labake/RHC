@@ -13,13 +13,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v4.util.LruCache;
 
-import com.example.wanghy.restauranthygienechecker.entity.Business;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+
+import com.example.wanghy.restauranthygienechecker.R;
+import com.example.wanghy.restauranthygienechecker.entity.Business;
 
 /**
  * Created by coollive on 18/3/3.
@@ -88,15 +89,15 @@ public class BusinessListAdapter extends BaseAdapter {
         holder.phone.setText(business.getPhone());
         holder.distance.setText(business.getDistance());
         holder.ratingValue.setText(business.getRatingValue());
-        holder.iv.setTag(business.getImageUrl());
+        //holder.iv.setTag(business.getImageUrl());
 
         // 如果本地已有缓存，就从本地读取，否则从网络请求数据
-        if (mImageCache.get(business.getImageUrl()) != null) {
-            holder.iv.setImageDrawable(mImageCache.get(business.getImageUrl()));
-        } else {
-            ImageTask it = new ImageTask();
-            it.execute(business.getImageUrl());
-        }
+        //if (mImageCache.get(business.getImageUrl()) != null) {
+        //    holder.iv.setImageDrawable(mImageCache.get(business.getImageUrl()));
+        //} else {
+        //    ImageTask it = new ImageTask();
+        //    it.execute(business.getImageUrl());
+        //}
         return convertView;
     }
 

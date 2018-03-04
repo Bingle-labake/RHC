@@ -11,7 +11,6 @@ public class Business {
     private String phone;
     private String distance;
     private String ratingValue;
-    private String imageUrl;
     private double longitude;
     private double latitude;
 
@@ -73,14 +72,6 @@ public class Business {
 
     public void setRatingValue(String ratingValue) {
         this.ratingValue = ratingValue;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public double getLongitude() {

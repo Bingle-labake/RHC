@@ -77,15 +77,15 @@ public class SimpleSearchFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        lv = (ListView) getView().findViewById(R.id.listViewF);
-        simple_search_input = (EditText)getView().findViewById(R.id.simple_search_input);
+        lv = (ListView) view.findViewById(R.id.listViewF);
+        simple_search_input = (EditText)view.findViewById(R.id.simple_search_input);
         simple_search_input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     Log.i("---","搜索操作执行");
                     String wd = simple_search_input.getText().toString();
-                    get(wd);
+                    get(wd, "");
                 }
                 return false;
             }
@@ -95,9 +95,8 @@ public class SimpleSearchFragment extends Fragment {
 
 
     private void reLoadData() {
-
-        String address = "";//定位获取地址
-        get(address);
+        String address = "Aster House";//定位获取地址
+        get("", address);
     }
 
     private Handler mHandler = new Handler(){
@@ -144,12 +143,14 @@ public class SimpleSearchFragment extends Fragment {
     /**
      * get
      */
-    public void get(String wd){
+    public void get(String name, String address){
         //创建一个请求队列
         requestQueue = Volley.newRequestQueue(SimpleSearchFragment.this.getContext());
         //创建一个请求
-        String url = Consts.FOOD_HOST+"Establishments?name=%s&address=%s&longitude=%s&latitude=%s&maxDistanceLimit=%s&businessTypeId=%s&schemeTypeKey=%s&ratingKey=%s&ratingOperatorKey=%s&localAuthorityId=%s&countryId=%s&sortOptionKey=%s&pageNumber=%s&pageSize=%s";
-        url = String.format(url, wd, wd);
+        //String url = Consts.FOOD_HOST+"Establishments?name=%s&address=%s&longitude=%s&latitude=%s&maxDistanceLimit=%s&businessTypeId=%s&schemeTypeKey=%s&ratingKey=%s&ratingOperatorKey=%s&localAuthorityId=%s&countryId=%s&sortOptionKey=%s&pageNumber=%s&pageSize=%s";
+        String url = Consts.FOOD_HOST+"Establishments?name=%s&address=%s";
+        url = String.format(url, name, address);
+        Log.e(TAG,"url: "+url+"\n");
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             //正确接收数据回调
             @Override
