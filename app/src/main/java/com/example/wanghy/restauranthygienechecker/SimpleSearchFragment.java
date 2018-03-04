@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import com.android.volley.AuthFailureError;
@@ -31,6 +33,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.wanghy.restauranthygienechecker.adapter.BusinessListAdapter;
 import com.example.wanghy.restauranthygienechecker.common.Consts;
+import com.example.wanghy.restauranthygienechecker.common.StringRequestWithFood;
 import com.example.wanghy.restauranthygienechecker.entity.BitmapCache;
 import com.example.wanghy.restauranthygienechecker.entity.Business;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -99,6 +102,7 @@ public class SimpleSearchFragment extends Fragment {
         get("", address);
     }
 
+
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -125,9 +129,9 @@ public class SimpleSearchFragment extends Fragment {
 
                 int bid                = data.getInt("FHRSID");
                 String businessName    = data.getString("BusinessName");
-                String addressLine     = data.getString("AddressLine1");
-                String phone           = data.getString("Phone");
-                String distance        = data.getString("Distance");
+                String addressLine     = "Shop Premises 2 Quiet Street City Centre Bath";
+                String phone           = "0374-34334343";
+                String distance        = "0.0km";
                 String ratingValue     = data.getString("RatingValue");
 
                 business = new Business(bid, businessName, addressLine, addressLine, phone, distance, ratingValue);
@@ -144,24 +148,23 @@ public class SimpleSearchFragment extends Fragment {
      * get
      */
     public void get(String name, String address){
-        //创建一个请求队列
         requestQueue = Volley.newRequestQueue(SimpleSearchFragment.this.getContext());
-        //创建一个请求
         //String url = Consts.FOOD_HOST+"Establishments?name=%s&address=%s&longitude=%s&latitude=%s&maxDistanceLimit=%s&businessTypeId=%s&schemeTypeKey=%s&ratingKey=%s&ratingOperatorKey=%s&localAuthorityId=%s&countryId=%s&sortOptionKey=%s&pageNumber=%s&pageSize=%s";
         String url = Consts.FOOD_HOST+"Establishments?name=%s&address=%s";
         url = String.format(url, name, address);
+        url = "http://api.ratings.food.gov.uk/Establishments/basic/1/10";
         Log.e(TAG,"url: "+url+"\n");
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+        StringRequestWithFood stringRequest = new StringRequestWithFood(url, new Response.Listener<String>() {
             //正确接收数据回调
             @Override
             public void onResponse(String s) {
                 Log.e(TAG,"ret="+s+"\n");
                 loadData(s);
             }
-        }, new Response.ErrorListener() {//异常后的监听数据
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                volley_result.setText("加载错误"+volleyError);
+                Toast.makeText(SimpleSearchFragment.this.getActivity(), "加载错误"+volleyError, Toast.LENGTH_LONG).show();
             }
         });
         //将get请求添加到队列中

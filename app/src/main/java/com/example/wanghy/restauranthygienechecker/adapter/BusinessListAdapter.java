@@ -13,6 +13,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v4.util.LruCache;
 
+import com.example.wanghy.restauranthygienechecker.R;
+import com.example.wanghy.restauranthygienechecker.entity.Business;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;

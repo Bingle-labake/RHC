@@ -1,17 +1,24 @@
 package com.example.wanghy.restauranthygienechecker;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -46,6 +53,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,8 +69,6 @@ public class MainActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private AddressResultReceiver mResultReceiver;
     protected boolean mAddressRequested;
-    private EditText mLatitudeText;
-    private EditText mLongitudeText;
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -79,9 +85,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        mLatitudeText = (EditText) findViewById(R.id.latitudeText);
-        mLongitudeText = (EditText)findViewById(R.id.longitudeText);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -230,9 +233,6 @@ public class MainActivity extends AppCompatActivity
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         Log.i("MapsActivity", "buildGoogleApiClient-->mLastLocation.");
         if (mLastLocation != null) {
-            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
-            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
-
             Log.i("MapsActivity", "buildGoogleApiClient-->getLatitude."+String.valueOf(mLastLocation.getLatitude()));
             Log.i("MapsActivity", "buildGoogleApiClient-->getLongitude."+String.valueOf(mLastLocation.getLongitude()));
             if (mLastLocation != null) {

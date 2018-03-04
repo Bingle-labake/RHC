@@ -2,67 +2,71 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteX="113dp"
+        tools:layout_editor_absoluteY="16dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="Simple Search"
-            android:textSize="24dp" />
-        <!--name search-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="25dp"-->
-            <!--android:gravity="center_horizontal"-->
-            <!--&gt;-->
-
-        <EditText
-            android:id="@+id/simple_search_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/editbox"
-            android:hint="Business or Street name search"
-            android:textAlignment="center"
-            android:textColorHint="#95A1AA" />
-        <!--</LinearLayout>-->
-        <!--name search end-->
-        <!--搜索结果列表-->
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp">
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ListView
-                android:id="@+id/listViewF"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center_horizontal"
+                android:text="Simple Search"
+                android:textSize="24dp" />
 
-            </ListView>
-        </ScrollView>
-        <!--搜索结果列表end-->
-    </LinearLayout>
+            <EditText
+                android:id="@+id/simple_search_input"
+                android:layout_width="202dp"
+                android:layout_height="49dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/editbox"
+                android:hint="Business or Street name search"
+                android:textAlignment="center"
+                android:textColorHint="#95A1AA" />
+
+            <!--</LinearLayout>-->
+            <!--name search end-->
+            <!--搜索结果列表-->
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp">
+
+                <ListView
+                    android:id="@+id/listViewF"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </ListView>
+            </ScrollView>
+            <!--搜索结果列表end-->
+        </LinearLayout>
+    </FrameLayout>
+
 
 
 </android.support.constraint.ConstraintLayout>
