@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +93,8 @@ public class BusinessListAdapter extends BaseAdapter {
         holder.phone.setText(business.getPhone());
         holder.distance.setText(business.getDistance());
         holder.ratingValue.setText(business.getRatingValue());
+
+        Log.e("SimpleSearchFragment","position="+position+", businessName="+business.getBusinessName()+", ratingValue="+business.getRatingValue()+"\n");
         //holder.iv.setTag(business.getImageUrl());
 
         // 如果本地已有缓存，就从本地读取，否则从网络请求数据

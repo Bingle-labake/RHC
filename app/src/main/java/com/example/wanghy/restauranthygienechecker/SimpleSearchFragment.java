@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -46,6 +48,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 
 /**
  * Created by wanghy on 2018/2/26.
@@ -54,8 +58,6 @@ import java.util.Map;
 public class SimpleSearchFragment extends Fragment {
     View myView;
     private ListView lv;
-    private List<Business> list;
-
     RequestQueue requestQueue;
 
     private Button volley_get;
@@ -85,7 +87,11 @@ public class SimpleSearchFragment extends Fragment {
         simple_search_input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (actionId == KeyEvent.KEYCODE_ENTER) {
+                    ((InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(SimpleSearchFragment.this.getActivity().getCurrentFocus()
+                                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
                     Log.i("---","搜索操作执行");
                     String wd = simple_search_input.getText().toString();
                     get(wd, "");
@@ -109,6 +115,7 @@ public class SimpleSearchFragment extends Fragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
+                    List<Business> list = (List<Business>) msg.obj;
                     BusinessListAdapter adapter = new BusinessListAdapter(list);
                     lv.setAdapter(adapter);
                     break;
@@ -119,11 +126,10 @@ public class SimpleSearchFragment extends Fragment {
     };
 
     private void loadData(String response) {
-        list = new ArrayList<Business>();
         try {
+            List<Business> list = new ArrayList<Business>();
             JSONObject obj            = new JSONObject(response);
             JSONArray establishments = obj.getJSONArray("establishments");
-            Business business = null;
             for (int i = 0; i < establishments.length(); i++) {
                 JSONObject data = establishments.getJSONObject(i);
 
@@ -134,13 +140,19 @@ public class SimpleSearchFragment extends Fragment {
                 String distance        = "0.0km";
                 String ratingValue     = data.getString("RatingValue");
 
-                business = new Business(bid, businessName, addressLine, addressLine, phone, distance, ratingValue);
+                Business business = new Business(bid, businessName, addressLine, addressLine, phone, distance, ratingValue);
                 list.add(business);
+            }
+
+            if(!list.isEmpty()) {
+                Message msg = new Message();
+                msg.what = 0;
+                msg.obj = list;
+                mHandler.sendMessage(msg);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        mHandler.obtainMessage(0).sendToTarget();
     }
 
 
@@ -154,6 +166,9 @@ public class SimpleSearchFragment extends Fragment {
         url = String.format(url, name, address);
         url = "http://api.ratings.food.gov.uk/Establishments/basic/1/10";
         Log.e(TAG,"url: "+url+"\n");
+
+        int DEFAULT_TIMEOUT_MS = 10000;
+        int DEFAULT_MAX_RETRIES = 3;
         StringRequestWithFood stringRequest = new StringRequestWithFood(url, new Response.Listener<String>() {
             //正确接收数据回调
             @Override
@@ -167,6 +182,9 @@ public class SimpleSearchFragment extends Fragment {
                 Toast.makeText(SimpleSearchFragment.this.getActivity(), "加载错误"+volleyError, Toast.LENGTH_LONG).show();
             }
         });
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                DEFAULT_TIMEOUT_MS, DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
         //将get请求添加到队列中
         requestQueue.add(stringRequest);
     }

@@ -26,7 +26,6 @@ public class StringRequestWithFood extends StringRequest {
     public Map<String, String> getHeaders() throws AuthFailureError {
         Map<String, String> headers = new LinkedHashMap<>();
         headers.put("x-api-version", "2");
-        headers.put("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8");
         headers.put("accept", "application/json");
         headers.put("content-type", "application/json");
         headers.put("Host", "api.ratings.food.gov.uk");

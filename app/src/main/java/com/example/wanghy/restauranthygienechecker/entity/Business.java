@@ -14,8 +14,7 @@ public class Business {
     private double longitude;
     private double latitude;
 
-    public Business(int bid, String businessName, String addressLine, String phone,
-                    String distance, String ratingValue) {
+    public Business(int bid, String businessName, String addressLine, String line, String phone, String distance, String ratingValue) {
         this.bid = bid;
         this.businessName = businessName;
         this.addressLine  = addressLine;
@@ -23,8 +22,6 @@ public class Business {
         this.distance     = distance;
         this.ratingValue  = ratingValue;
     }
-
-    public Business(int bid, String businessName, String addressLine, String line, String phone, String distance, String ratingValue) {}
 
     public int getBid() {
         return bid;
