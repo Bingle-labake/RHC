@@ -1,67 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ImageView
-            android:id="@+id/iv"
-             android:layout_width="80dp"
-             android:layout_height="90dp"
-             android:layout_centerVertical="true"
-             android:padding="5dp"
-             android:src="@drawable/ic_launcher" />
-
-    <TextView
-             android:id="@+id/businessName"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="20dp"
-             android:layout_toRightOf="@id/iv"
-             android:gravity="center_vertical"
-             android:text="Buttylicious"
-             android:textSize="14sp"
-             android:textStyle="bold" />
-
-    <TextView
-            android:id="@+id/addressLine"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/businessName"
-            android:gravity="center_vertical"
-            android:text="Shine Barbers 34 High Street Ventnor Isle Of Wight"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-             android:id="@+id/phone"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_below="@id/addressLine"
-             android:layout_marginTop="8dp"
-             android:layout_toRightOf="@id/iv"
-             android:text="001352345678"
-             android:textSize="12sp" />
+            <TextView
+                android:id="@+id/businessName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/iv"
+                android:gravity="center_vertical"
+                android:text="Buttylicious"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addressLine"
-        android:layout_marginTop="8dp"
-        android:layout_toRightOf="@id/iv"
-        android:text="0.7km"
-        android:textSize="12sp" />
+            <!--搜索结果列表-->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="25dp">
 
-    <TextView
-        android:id="@+id/ratingValue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addressLine"
-        android:layout_marginTop="8dp"
-        android:layout_toRightOf="@id/iv"
-        android:text="4"
-        android:textSize="12sp" />
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!--餐厅信息-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+                        <!--图片-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/iv"
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:padding="5dp"
+                                android:src="@drawable/ic_launcher" />
+                            <!--文字内容-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="3dp"
+                                android:paddingRight="3dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Address:"
+                                    android:textStyle="bold"/>
+                                <TextView
+                                    android:id="@+id/addressLine"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/businessName"
+                                    android:gravity="center_vertical"
+                                    android:text="Shine Barbers 34 High Street Ventnor Isle Of Wight"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="3dp">
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:orientation="vertical">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Phone number:"
+                                            android:textStyle="bold"
+                                            android:layout_marginRight="7dp"/>
+                                        <TextView
+                                            android:id="@+id/phone"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@id/addressLine"
+                                            android:layout_toRightOf="@id/iv"
+                                            android:text="001352345678"
+                                            android:textSize="13dp"
+                                            android:layout_marginLeft="5dp"/>
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:orientation="vertical">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:textStyle="bold"
+                                            android:text="Distance:"/>
+
+                                        <TextView
+                                            android:id="@+id/distance"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@id/addressLine"
+                                            android:layout_toRightOf="@id/iv"
+                                            android:text="0.7km"
+                                            android:textSize="13dp"
+                                            android:layout_marginLeft="5dp"/>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="3dp">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:text="Rating:"
+                                        android:layout_marginRight="15dp"/>
+                                    <TextView
+                                        android:id="@+id/ratingValue"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@id/addressLine"
+                                        android:layout_toRightOf="@id/iv"
+                                        android:text="4"
+                                        android:textSize="13dp" />
+
+                                </LinearLayout>
 
 
-</RelativeLayout>
+
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </ListView>
+            </ScrollView>
+            <!--搜索结果列表end-->
+        </LinearLayout>
+    </FrameLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
+

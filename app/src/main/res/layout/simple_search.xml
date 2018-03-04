@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,11 +30,11 @@
             android:textSize="24dp" />
         <!--name search-->
         <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="25dp"-->
-            <!--android:gravity="center_horizontal"-->
-            <!--&gt;-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--&gt;-->
 
         <EditText
             android:id="@+id/simple_search_input"
@@ -45,6 +47,11 @@
             android:hint="Business or Street name search"
             android:textAlignment="center"
             android:textColorHint="#95A1AA" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:layout_marginTop="15dp"/>
         <!--</LinearLayout>-->
         <!--name search end-->
         <!--搜索结果列表-->
@@ -63,6 +70,8 @@
         </ScrollView>
         <!--搜索结果列表end-->
     </LinearLayout>
+</FrameLayout>
+
 
 
 </android.support.constraint.ConstraintLayout>

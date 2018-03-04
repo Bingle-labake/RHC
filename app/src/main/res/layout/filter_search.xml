@@ -7,7 +7,9 @@
     android:orientation="vertical"
     android:layout_gravity="center_horizontal">
 
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -66,18 +68,20 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Region"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp"
+                        android:gravity="center_horizontal"/>
 
                     <Spinner
                         android:layout_width="50dp"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"/>
 
 
                 </LinearLayout>
@@ -85,18 +89,20 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Business Types"
                         android:layout_marginLeft="25dp"
-                        android:textSize="16dp"/>
+                        android:textSize="16dp"
+                        android:gravity="center_horizontal"/>
 
                     <Spinner
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp">
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_horizontal">
 
                     </Spinner>
 
@@ -118,13 +124,19 @@
                     android:text="Restaurant Rating"
                     android:textSize="14dp"
                     android:gravity="center_horizontal"/>
-
-                <SeekBar
-                    style="@android:style/Widget.Holo.SeekBar"
-                    android:layout_width="match_parent"
+                <Spinner
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:max="5"
-                    android:progress="1" />
+                    android:layout_marginLeft="15dp">
+
+                </Spinner>
+
+                <!--<SeekBar-->
+                    <!--style="@android:style/Widget.Holo.SeekBar"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:max="5"-->
+                    <!--android:progress="1" />-->
 
             </LinearLayout>
             <!--Rating end-->
@@ -176,5 +188,7 @@
         </LinearLayout>
 
     </LinearLayout>
+</FrameLayout>
+
 
 </android.support.constraint.ConstraintLayout>

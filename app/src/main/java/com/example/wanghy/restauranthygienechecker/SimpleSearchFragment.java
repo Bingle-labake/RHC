@@ -90,15 +90,15 @@ public class SimpleSearchFragment extends Fragment {
                 return false;
             }
         });
-        reLoadData();
+//        reLoadData();
     }
 
 
-    private void reLoadData() {
-
-        String address = "";//定位获取地址
-        get(address);
-    }
+//    private void reLoadData() {
+//
+//        String address = "";//定位获取地址
+//        get(address);
+//    }
 
     private Handler mHandler = new Handler(){
         @Override
