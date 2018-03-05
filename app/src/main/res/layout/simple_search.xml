@@ -41,11 +41,13 @@
                 android:singleLine="true"
                 android:textAlignment="center"
                 android:textColorHint="#95A1AA" />
+
             <Button
+                android:id="@+id/simple_search_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Search"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:text="Search" />
 
 
             <ScrollView

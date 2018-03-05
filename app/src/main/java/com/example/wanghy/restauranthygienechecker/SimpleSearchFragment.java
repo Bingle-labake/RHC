@@ -67,6 +67,7 @@ public class SimpleSearchFragment extends Fragment {
     private Button volley_imageRequest;
     private Button volley_imageLader;
     private Button netWorkImageView;
+    private Button simple_search_btn;
     private ImageView volley_image;
     private SimpleDraweeView volley_imageNet;
     private TextView volley_result;
@@ -93,7 +94,6 @@ public class SimpleSearchFragment extends Fragment {
                             .hideSoftInputFromWindow(SimpleSearchFragment.this.getActivity().getCurrentFocus()
                                     .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
-                    Log.i("---","搜索操作执行");
                     String wd = simple_search_input.getText().toString();
                     Establishment establishment = new Establishment(wd, wd);
                     get(establishment);
@@ -101,13 +101,25 @@ public class SimpleSearchFragment extends Fragment {
                 return false;
             }
         });
+
+        simple_search_btn = (Button)view.findViewById(R.id.simple_search_btn);
+        simple_search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String wd = simple_search_input.getText().toString();
+                Establishment establishment = new Establishment(wd, wd);
+                get(establishment);
+            }
+        });
+
+
         reLoadData();
     }
 
 
     private void reLoadData() {
-        double longitude = 51.5;
-        double latitude  = 0.1;
+        double longitude = 0.1;
+        double latitude  = 51.5;
         String address = "Aster House";//定位获取地址
         Establishment establishment = new Establishment(longitude, latitude, 15);
         get(establishment);
@@ -140,12 +152,20 @@ public class SimpleSearchFragment extends Fragment {
 
                 int bid                = data.getInt("FHRSID");
                 String businessName    = data.getString("BusinessName");
-                String addressLine     = "Shop Premises 2 Quiet Street City Centre Bath";
-                String phone           = "0374-34334343";
-                String distance        = "0.0km";
+                String addressLine     = data.getString("AddressLine1");
+                String phone           = data.getString("Phone");
+                String distance        = data.getString("Distance");
                 String ratingValue     = data.getString("RatingValue");
 
+                JSONObject geocode     = data.getJSONObject("geocode");
+                String longitude       = geocode.getString("longitude");
+                String latitude       = geocode.getString("latitude");
+                if(distance == "") {
+                    distance = "--";
+                }
                 Business business = new Business(bid, businessName, addressLine, addressLine, phone, distance, ratingValue);
+                business.setLongitude(longitude);
+                business.setLatitude(latitude);
                 list.add(business);
             }
 

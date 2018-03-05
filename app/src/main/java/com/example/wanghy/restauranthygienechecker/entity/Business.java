@@ -11,8 +11,8 @@ public class Business {
     private String phone;
     private String distance;
     private String ratingValue;
-    private double longitude;
-    private double latitude;
+    private String longitude;
+    private String latitude;
 
     public Business(int bid, String businessName, String addressLine, String line, String phone, String distance, String ratingValue) {
         this.bid = bid;
@@ -71,19 +71,19 @@ public class Business {
         this.ratingValue = ratingValue;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 }

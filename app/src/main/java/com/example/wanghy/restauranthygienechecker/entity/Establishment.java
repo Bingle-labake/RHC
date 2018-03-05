@@ -42,48 +42,48 @@ public class Establishment {
             url = Consts.FOOD_HOST+"Establishments/basic/%d/%d";
             url = String.format(url, this.pageNumber, this.pageSize);
         }else {
-            url = Consts.FOOD_HOST+"Establishments?name={name}&address={address}&longitude={longitude}&latitude={latitude}&maxDistanceLimit={maxDistanceLimit}&businessTypeId={businessTypeId}&schemeTypeKey={schemeTypeKey}&ratingKey={ratingKey}&ratingOperatorKey={ratingOperatorKey}&localAuthorityId={localAuthorityId}&countryId={countryId}&sortOptionKey={sortOptionKey}&pageNumber={pageNumber}&pageSize={pageSize}";
+            url = Consts.FOOD_HOST+"Establishments?";
             if(this.name != "") {
-                url = url.replaceAll("\\{name\\}", this.name);
+                url += "&name="+this.name;
             }
             if(this.address != "") {
-                url = url.replaceAll("\\{address\\}", this.address);
+                url += "&address="+this.address;
             }
             if(this.longitude != 0.0) {
-                url = url.replaceAll("\\{longitude\\}", String.valueOf(this.longitude));
+                url += "&longitude="+String.valueOf(this.longitude);
             }
             if(this.latitude != 0.0) {
-                url = url.replaceAll("\\{latitude\\}", String.valueOf(this.latitude));
+                url += "&latitude="+String.valueOf(this.latitude);
             }
             if(this.maxDistanceLimit > 0) {
-                url = url.replaceAll("\\{maxDistanceLimit\\}", String.valueOf(this.maxDistanceLimit));
+                url += "&maxDistanceLimit="+String.valueOf(this.maxDistanceLimit);
             }
             if(this.businessTypeId != "") {
-                url = url.replaceAll("\\{businessTypeId\\}", this.businessTypeId);
+                url += "&businessTypeId="+this.businessTypeId;
             }
             if(this.schemeTypeKey != "") {
-                url = url.replaceAll("\\{schemeTypeKey\\}", this.schemeTypeKey);
+                url += "&schemeTypeKey="+this.schemeTypeKey;
             }
             if(this.ratingKey != "") {
-                url = url.replaceAll("\\{ratingKey\\}", this.ratingKey);
+                url += "&ratingKey="+this.ratingKey;
             }
             if(this.ratingOperatorKey != "") {
-                url = url.replaceAll("\\{ratingOperatorKey\\}", this.ratingOperatorKey);
+                url += "&ratingOperatorKey="+this.ratingOperatorKey;
             }
             if(this.localAuthorityId != "") {
-                url = url.replaceAll("\\{localAuthorityId\\}", this.localAuthorityId);
+                url += "&localAuthorityId="+this.localAuthorityId;
             }
             if(this.countryId != "") {
-                url = url.replaceAll("\\{countryId\\}", this.countryId);
+                url += "&countryId="+this.countryId;
             }
             if(this.sortOptionKey != "") {
-                url = url.replaceAll("\\{sortOptionKey\\}", this.sortOptionKey);
+                url += "&sortOptionKey="+this.sortOptionKey;
             }
             if(this.pageNumber > 0) {
-                url = url.replaceAll("\\{pageNumber\\}", String.valueOf(this.pageNumber));
+                url += "&pageNumber="+String.valueOf(this.pageNumber);
             }
             if(this.pageSize > 0) {
-                url = url.replaceAll("\\{pageSize\\}", String.valueOf(this.pageSize));
+                url += "&pageSize="+String.valueOf(this.pageSize);
             }
         }
         return url;
