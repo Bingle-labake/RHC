@@ -11,6 +11,7 @@
 
     <FrameLayout
         android:id="@+id/main_frame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></FrameLayout>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>
