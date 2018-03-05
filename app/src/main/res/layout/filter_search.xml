@@ -74,7 +74,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Region"
+                        android:text="Region :"
                         android:textSize="16dp"
                         android:gravity="center_horizontal"/>
 
@@ -93,7 +93,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Business Types"
+                        android:text="Business Types :"
                         android:layout_marginLeft="25dp"
                         android:textSize="16dp"
                         android:gravity="center_horizontal"/>
@@ -121,7 +121,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Restaurant Rating"
+                    android:text="Restaurant Rating :"
                     android:textSize="14dp"
                     android:gravity="center_horizontal"/>
                 <Spinner
@@ -150,7 +150,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Distance"
+                    android:text="Distance :"
                     android:textSize="14dp"
                     android:gravity="center_horizontal"/>
 
