@@ -2,6 +2,7 @@ package com.example.wanghy.restauranthygienechecker;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -87,7 +89,7 @@ public class SimpleSearchFragment extends Fragment {
     private EditText simple_search_input;
     private double longitude = 0.1;
     private double latitude = 51.5;
-
+    BusinessListAdapter adapter;
     private final String TAG = "SimpleSearchFragment";
 
     @Nullable
@@ -116,6 +118,15 @@ public class SimpleSearchFragment extends Fragment {
                 return false;
             }
         });
+//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Log.d("onclick", "clicked"+i);
+//                Intent ii = new Intent(getActivity(), DetailActivity.class);
+//                ii.putExtra("establishment",adapter.getEst(i) );
+//                startActivity(ii);
+//            }
+//        });
 
         simple_search_btn = (Button) view.findViewById(R.id.simple_search_btn);
         simple_search_btn.setOnClickListener(new View.OnClickListener() {
@@ -135,8 +146,8 @@ public class SimpleSearchFragment extends Fragment {
         Establishment establishment = new Establishment(longitude, latitude, 15);
         get(establishment);
 
-        //String lngandlat = getLngAndLat(SimpleSearchFragment.this.getContext());
-        //Log.e(TAG, "longitude and latitude: " + lngandlat + "\n");
+//        String lngandlat = getLngAndLat(SimpleSearchFragment.this.getContext());
+//        Log.e(TAG, "longitude and latitude: " + lngandlat + "\n");
     }
 
     private Handler mHandler = new Handler() {
@@ -146,8 +157,9 @@ public class SimpleSearchFragment extends Fragment {
             switch (msg.what) {
                 case 0:
                     List<Business> list = (List<Business>) msg.obj;
-                    BusinessListAdapter adapter = new BusinessListAdapter(list);
+                    adapter = new BusinessListAdapter(list);
                     lv.setAdapter(adapter);
+
                     break;
                 default:
                     break;

@@ -2,11 +2,13 @@ package com.example.wanghy.restauranthygienechecker.entity;
 
 import com.example.wanghy.restauranthygienechecker.common.Consts;
 
+import java.io.Serializable;
+
 /**
  * Created by coollive on 18/3/3.
  */
 
-public class Establishment {
+public class Establishment implements Serializable{
     private String name = "";
     private String address = "";
     private String businessTypeId = "";

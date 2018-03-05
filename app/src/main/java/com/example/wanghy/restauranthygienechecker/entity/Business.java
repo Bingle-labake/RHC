@@ -1,10 +1,12 @@
 package com.example.wanghy.restauranthygienechecker.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by coollive on 18/3/3.
  */
 
-public class Business {
+public class Business implements Serializable{
     private int bid;
     private String businessName;
     private String addressLine;

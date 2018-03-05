@@ -81,7 +81,8 @@
                     <Spinner
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"/>
+                        android:gravity="center_horizontal"
+                        android:entries="@array/Region"/>
 
 
                 </LinearLayout>
@@ -102,7 +103,8 @@
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:gravity="center_horizontal">
+                        android:gravity="center_horizontal"
+                        android:entries="@array/Businesstypes">
 
                     </Spinner>
 
@@ -116,27 +118,54 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center_horizontal"
                 android:layout_marginTop="15dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Restaurant Rating :"
-                    android:textSize="14dp"
-                    android:gravity="center_horizontal"/>
-                <Spinner
-                    android:layout_width="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Rating :"
+                        android:textSize="16dp"
+                        android:gravity="center_horizontal"/>
+
+                    <Spinner
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:entries="@array/ratings"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Authorities :"
+                        android:layout_marginLeft="25dp"
+                        android:textSize="16dp"
+                        android:gravity="center_horizontal"/>
 
-                </Spinner>
+                    <Spinner
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_horizontal">
 
-                <!--<SeekBar-->
-                    <!--style="@android:style/Widget.Holo.SeekBar"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:max="5"-->
-                    <!--android:progress="1" />-->
+                    </Spinner>
+
+                </LinearLayout>
+
 
             </LinearLayout>
             <!--Rating end-->

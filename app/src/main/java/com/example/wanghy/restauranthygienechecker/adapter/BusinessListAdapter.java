@@ -1,5 +1,6 @@
 package com.example.wanghy.restauranthygienechecker.adapter;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v4.util.LruCache;
 
+import com.example.wanghy.restauranthygienechecker.DetailActivity;
 import com.example.wanghy.restauranthygienechecker.R;
 import com.example.wanghy.restauranthygienechecker.entity.Business;
 
@@ -25,6 +28,7 @@ import java.util.List;
 
 import com.example.wanghy.restauranthygienechecker.R;
 import com.example.wanghy.restauranthygienechecker.entity.Business;
+import com.example.wanghy.restauranthygienechecker.entity.Establishment;
 
 /**
  * Created by coollive on 18/3/3.
@@ -61,13 +65,15 @@ public class BusinessListAdapter extends BaseAdapter {
         return list.get(position);
     }
 
+    public Business getEst(int position){return list.get(position);}
+
     @Override
     public long getItemId(int position) {
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if (listview == null) {
             listview = (ListView) parent;
         }
@@ -82,6 +88,8 @@ public class BusinessListAdapter extends BaseAdapter {
             holder.phone        = (TextView) convertView.findViewById(R.id.phone);
             holder.distance     = (TextView) convertView.findViewById(R.id.distance);
             holder.ratingValue  = (TextView) convertView.findViewById(R.id.ratingValue);
+            holder.ratingimage = (LinearLayout) convertView.findViewById(R.id.ll_ri_rating);
+
 
             convertView.setTag(holder);
         } else {
@@ -92,7 +100,34 @@ public class BusinessListAdapter extends BaseAdapter {
         holder.addressLine.setText(business.getAddressLine());
         holder.phone.setText(business.getPhone());
         holder.distance.setText(business.getDistance());
-        holder.ratingValue.setText(business.getRatingValue());
+//        holder.ratingValue.setText(business.getRatingValue());
+
+        holder.ratingimage.removeAllViews();
+        //图形转换
+        switch (business.getRatingValue()){
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+
+                // Convert string to integer
+
+                for(int i=0; i< Integer.parseInt(business.getRatingValue()); i++){
+                    ImageView imageView = new ImageView(holder.ratingimage.getContext());
+                    imageView.setImageResource(R.drawable.ic_star);
+                    holder.ratingimage.addView(imageView);
+                }
+                for(int i=0; i< 5 - Integer.parseInt(business.getRatingValue()); i++){
+                    ImageView imageView = new ImageView(holder.ratingimage.getContext());
+                    imageView.setImageResource(R.drawable.ic_unstar);
+                    holder.ratingimage.addView(imageView);
+                }
+                // Loop using the rating value and add star to the linear layout
+
+            default:
+
+        }
 
         Log.e("SimpleSearchFragment","position="+position+", businessName="+business.getBusinessName()+", ratingValue="+business.getRatingValue()+"\n");
         //holder.iv.setTag(business.getImageUrl());
@@ -104,12 +139,22 @@ public class BusinessListAdapter extends BaseAdapter {
         //    ImageTask it = new ImageTask();
         //    it.execute(business.getImageUrl());
         //}
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ii = new Intent(view.getContext(), DetailActivity.class);
+                ii.putExtra("establishment", getEst(position) );
+                view.getContext().startActivity(ii);
+            }
+        });
         return convertView;
     }
 
     class ViewHolder {
         ImageView iv;
         TextView businessName, addressLine, phone, distance, ratingValue;
+        LinearLayout ratingimage;
     }
 
     class ImageTask extends AsyncTask<String, Void, BitmapDrawable> {
@@ -166,4 +211,6 @@ public class BusinessListAdapter extends BaseAdapter {
         }
 
     }
+
+    //par
 }
