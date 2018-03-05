@@ -1,8 +1,15 @@
 package com.example.wanghy.restauranthygienechecker;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,6 +48,11 @@ import com.example.wanghy.restauranthygienechecker.entity.Business;
 import com.example.wanghy.restauranthygienechecker.entity.Establishment;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +62,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static android.location.LocationManager.NETWORK_PROVIDER;
 
 
 /**
@@ -72,20 +85,22 @@ public class SimpleSearchFragment extends Fragment {
     private SimpleDraweeView volley_imageNet;
     private TextView volley_result;
     private EditText simple_search_input;
+    private double longitude = 0.1;
+    private double latitude = 51.5;
 
     private final String TAG = "SimpleSearchFragment";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.simple_search,null);
+        myView = inflater.inflate(R.layout.simple_search, null);
         initViews(myView);
         return myView;
     }
 
     private void initViews(View view) {
         lv = (ListView) view.findViewById(R.id.listViewF);
-        simple_search_input = (EditText)view.findViewById(R.id.simple_search_input);
+        simple_search_input = (EditText) view.findViewById(R.id.simple_search_input);
         simple_search_input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -102,7 +117,7 @@ public class SimpleSearchFragment extends Fragment {
             }
         });
 
-        simple_search_btn = (Button)view.findViewById(R.id.simple_search_btn);
+        simple_search_btn = (Button) view.findViewById(R.id.simple_search_btn);
         simple_search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,22 +126,20 @@ public class SimpleSearchFragment extends Fragment {
                 get(establishment);
             }
         });
-
-
         reLoadData();
     }
 
 
     private void reLoadData() {
-        double longitude = 0.1;
-        double latitude  = 51.5;
         String address = "Aster House";//定位获取地址
         Establishment establishment = new Establishment(longitude, latitude, 15);
         get(establishment);
+
+        //String lngandlat = getLngAndLat(SimpleSearchFragment.this.getContext());
+        //Log.e(TAG, "longitude and latitude: " + lngandlat + "\n");
     }
 
-
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -145,22 +158,22 @@ public class SimpleSearchFragment extends Fragment {
     private void loadData(String response) {
         try {
             List<Business> list = new ArrayList<Business>();
-            JSONObject obj            = new JSONObject(response);
+            JSONObject obj = new JSONObject(response);
             JSONArray establishments = obj.getJSONArray("establishments");
             for (int i = 0; i < establishments.length(); i++) {
                 JSONObject data = establishments.getJSONObject(i);
 
-                int bid                = data.getInt("FHRSID");
-                String businessName    = data.getString("BusinessName");
-                String addressLine     = data.getString("AddressLine1");
-                String phone           = data.getString("Phone");
-                String distance        = data.getString("Distance");
-                String ratingValue     = data.getString("RatingValue");
+                int bid = data.getInt("FHRSID");
+                String businessName = data.getString("BusinessName");
+                String addressLine = data.getString("AddressLine1");
+                String phone = data.getString("Phone");
+                String distance = data.getString("Distance");
+                String ratingValue = data.getString("RatingValue");
 
-                JSONObject geocode     = data.getJSONObject("geocode");
-                String longitude       = geocode.getString("longitude");
-                String latitude       = geocode.getString("latitude");
-                if(distance == "") {
+                JSONObject geocode = data.getJSONObject("geocode");
+                String longitude = geocode.getString("longitude");
+                String latitude = geocode.getString("latitude");
+                if (distance == "") {
                     distance = "--";
                 }
                 Business business = new Business(bid, businessName, addressLine, addressLine, phone, distance, ratingValue);
@@ -169,7 +182,7 @@ public class SimpleSearchFragment extends Fragment {
                 list.add(business);
             }
 
-            if(!list.isEmpty()) {
+            if (!list.isEmpty()) {
                 Message msg = new Message();
                 msg.what = 0;
                 msg.obj = list;
@@ -183,11 +196,11 @@ public class SimpleSearchFragment extends Fragment {
     /**
      * get
      */
-    public void get(Establishment establishment){
+    public void get(Establishment establishment) {
         requestQueue = Volley.newRequestQueue(SimpleSearchFragment.this.getContext());
         //String url = Consts.FOOD_HOST+"Establishments?name=%s&address=%s&longitude=%s&latitude=%s&maxDistanceLimit=%s&businessTypeId=%s&schemeTypeKey=%s&ratingKey=%s&ratingOperatorKey=%s&localAuthorityId=%s&countryId=%s&sortOptionKey=%s&pageNumber=%s&pageSize=%s";
         String url = establishment.getUrl();
-        Log.e(TAG,"url: "+url+"\n");
+        Log.e(TAG, "url: " + url + "\n");
 
         int DEFAULT_TIMEOUT_MS = 10000;
         int DEFAULT_MAX_RETRIES = 3;
@@ -195,13 +208,13 @@ public class SimpleSearchFragment extends Fragment {
             //正确接收数据回调
             @Override
             public void onResponse(String s) {
-                Log.e(TAG,"ret="+s+"\n");
+                Log.e(TAG, "ret=" + s + "\n");
                 loadData(s);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(SimpleSearchFragment.this.getActivity(), "加载错误"+volleyError, Toast.LENGTH_LONG).show();
+                Toast.makeText(SimpleSearchFragment.this.getActivity(), "加载错误" + volleyError, Toast.LENGTH_LONG).show();
             }
         });
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
@@ -214,7 +227,7 @@ public class SimpleSearchFragment extends Fragment {
     /**
      * post
      */
-    private void post(){
+    private void post() {
         //创建一个请求队列
         requestQueue = Volley.newRequestQueue(SimpleSearchFragment.this.getContext());
         //创建一个请求
@@ -229,13 +242,13 @@ public class SimpleSearchFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                volley_result.setText("加载错误"+volleyError);
+                volley_result.setText("加载错误" + volleyError);
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> map = new HashMap<>();
+                Map<String, String> map = new HashMap<>();
                 // map.put("value1","param1");//传入参数
 
                 return map;
@@ -249,7 +262,7 @@ public class SimpleSearchFragment extends Fragment {
     /**
      * json
      */
-    private void json(){
+    private void json() {
         //创建一个请求队列
         requestQueue = Volley.newRequestQueue(SimpleSearchFragment.this.getContext());
 
@@ -264,12 +277,12 @@ public class SimpleSearchFragment extends Fragment {
                 volley_result.setText(jsonObject.toString());
 
 
-                Log.e(TAG,"data="+jsonObject);
+                Log.e(TAG, "data=" + jsonObject);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                volley_result.setText("加载错误"+volleyError);
+                volley_result.setText("加载错误" + volleyError);
 
             }
         });
@@ -281,7 +294,7 @@ public class SimpleSearchFragment extends Fragment {
     /**
      * 加载图片
      */
-    private void image(){
+    private void image() {
         //创建一个请求队列
         requestQueue = Volley.newRequestQueue(SimpleSearchFragment.this.getContext());
 
@@ -308,36 +321,128 @@ public class SimpleSearchFragment extends Fragment {
     /**
      * imageLoader
      */
-    private void imageLoader(){
+    private void imageLoader() {
         //创建一个请求队列
         requestQueue = Volley.newRequestQueue(SimpleSearchFragment.this.getContext());
 
         //创建一个请求
 
-        ImageLoader imageLoader = new ImageLoader(requestQueue,new BitmapCache());//带缓存
+        ImageLoader imageLoader = new ImageLoader(requestQueue, new BitmapCache());//带缓存
 
         //加载图片
         String url = "http://img5.mtime.cn/mg/2016/12/26/164311.99230575.jpg";
         //加载不到，加载失败
-        ImageLoader.ImageListener imageLister = imageLoader.getImageListener(volley_imageNet,R.mipmap.ic_launcher,R.mipmap.ic_launcher);
-        imageLoader.get(url,imageLister);
+        ImageLoader.ImageListener imageLister = imageLoader.getImageListener(volley_imageNet, R.mipmap.ic_launcher, R.mipmap.ic_launcher);
+        imageLoader.get(url, imageLister);
     }
 
     /**
      * netWorkImageView
      */
-    private void netWorkImageView(){
+    private void netWorkImageView() {
         //创建一个请求队列
         requestQueue = Volley.newRequestQueue(SimpleSearchFragment.this.getContext());
 
         //创建一个imageLoader
-        ImageLoader imageLoader = new ImageLoader(requestQueue,new BitmapCache());
+        ImageLoader imageLoader = new ImageLoader(requestQueue, new BitmapCache());
 
         //默认图片设置
         volley_imageNet.setImageResource(R.mipmap.ic_launcher);
 
         //加载图片
         String url = "http://img5.mtime.cn/mg/2016/12/26/164311.99230575.jpg";
-        volley_imageNet.setImageURI(url,imageLoader);
+        volley_imageNet.setImageURI(url, imageLoader);
     }
+
+    /**
+     * 获取经纬度
+     *
+     * @param context
+     * @return
+     */
+    private String getLngAndLat(Context context) {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
+            if (ActivityCompat.checkSelfPermission(SimpleSearchFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(SimpleSearchFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(SimpleSearchFragment.this.getActivity(), "getLngAndLat 加载错误", Toast.LENGTH_LONG).show();
+                return "0.0 , 0.0";
+            }
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            } else {//当GPS信号弱没获取到位置的时候又从网络获取
+                return getLngAndLatWithNetwork();
+            }
+        } else {    //从网络获取经纬度
+            locationManager.requestLocationUpdates(NETWORK_PROVIDER, 1000, 0, (android.location.LocationListener) locationListener);
+            Location location = locationManager.getLastKnownLocation(NETWORK_PROVIDER);
+            if (location != null) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+        }
+        return longitude + "," + latitude;
+    }
+
+
+    //从网络获取经纬度
+    private String getLngAndLatWithNetwork() {
+        LocationManager locationManager = (LocationManager) SimpleSearchFragment.this.getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(SimpleSearchFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(SimpleSearchFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(SimpleSearchFragment.this.getActivity(), "getLngAndLatWithNetwork 加载错误", Toast.LENGTH_LONG).show();
+            return "0.0 , 0.0";
+        }
+        locationManager.requestLocationUpdates(NETWORK_PROVIDER, 1000, 0, (android.location.LocationListener) locationListener);
+        Location location = locationManager.getLastKnownLocation(NETWORK_PROVIDER);
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+        return longitude + "," + latitude;
+    }
+
+    private LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            Toast.makeText(SimpleSearchFragment.this.getActivity(), "onLocationChanged函数被触发！", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "时间：" + location.getTime());
+            Log.i(TAG, "经度：" + location.getLongitude());
+            Log.i(TAG, "纬度：" + location.getLatitude());
+            Log.i(TAG, "海拔：" + location.getAltitude());
+
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            switch (status) {
+                //GPS状态为可见时
+                case LocationProvider.AVAILABLE:
+                    Toast.makeText(SimpleSearchFragment.this.getActivity(), "onStatusChanged：当前GPS状态为可见状态", Toast.LENGTH_SHORT).show();
+                    break;
+                //GPS状态为服务区外时
+                case LocationProvider.OUT_OF_SERVICE:
+                    Toast.makeText(SimpleSearchFragment.this.getActivity(), "onStatusChanged:当前GPS状态为服务区外状态", Toast.LENGTH_SHORT).show();
+                    break;
+                //GPS状态为暂停服务时
+                case LocationProvider.TEMPORARILY_UNAVAILABLE:
+                    Toast.makeText(SimpleSearchFragment.this.getActivity(), "onStatusChanged:当前GPS状态为暂停服务状态", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Toast.makeText(SimpleSearchFragment.this.getActivity(), "onProviderEnabled:方法被触发", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
+
 }
