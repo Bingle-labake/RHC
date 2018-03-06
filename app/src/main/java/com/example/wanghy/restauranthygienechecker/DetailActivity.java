@@ -39,6 +39,8 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         phone.setText(est.getPhone()+"");
         TextView businessName = (TextView) findViewById(R.id.businessName);
         businessName.setText(est.getBusinessName()+"");
+//        TextView distance = (TextView) findViewById(R.id.distance);
+//        distance.setText(est.getDistance()+"");
 //        TextView email = (TextView) findViewById(R.id.tv_email);
 //        email.setText(est.getEmail()+"");
 //        TextView web = (TextView) findViewById(R.id.tv_web);

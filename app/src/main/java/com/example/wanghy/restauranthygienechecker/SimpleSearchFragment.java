@@ -230,7 +230,7 @@ public class SimpleSearchFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(SimpleSearchFragment.this.getActivity(), "加载错误" + volleyError, Toast.LENGTH_LONG).show();
+//                Toast.makeText(SimpleSearchFragment.this.getActivity(), "加载错误" + volleyError, Toast.LENGTH_LONG).show();
             }
         });
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
@@ -380,7 +380,7 @@ public class SimpleSearchFragment extends Fragment {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
             if (ActivityCompat.checkSelfPermission(SimpleSearchFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(SimpleSearchFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(SimpleSearchFragment.this.getActivity(), "getLngAndLat 加载错误", Toast.LENGTH_LONG).show();
+//                Toast.makeText(SimpleSearchFragment.this.getActivity(), "getLngAndLat 加载错误", Toast.LENGTH_LONG).show();
                 return "0.0 , 0.0";
             }
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -406,7 +406,7 @@ public class SimpleSearchFragment extends Fragment {
     private String getLngAndLatWithNetwork() {
         LocationManager locationManager = (LocationManager) SimpleSearchFragment.this.getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(SimpleSearchFragment.this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(SimpleSearchFragment.this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(SimpleSearchFragment.this.getActivity(), "getLngAndLatWithNetwork 加载错误", Toast.LENGTH_LONG).show();
+//            Toast.makeText(SimpleSearchFragment.this.getActivity(), "getLngAndLatWithNetwork 加载错误", Toast.LENGTH_LONG).show();
             return "0.0 , 0.0";
         }
         locationManager.requestLocationUpdates(NETWORK_PROVIDER, 1000, 0, (android.location.LocationListener) locationListener);

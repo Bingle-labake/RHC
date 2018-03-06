@@ -21,10 +21,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
         Intent i = getIntent();
-        latitude = i.getDoubleExtra("latitude", -1);
-        longitude = i.getDoubleExtra("longitude", -1);
-        latitude = i.getDoubleExtra("latitude1", -1);
-        longitude = i.getDoubleExtra("longitude1", -1);
+//        latitude = i.getDoubleExtra("latitude", -1);
+//        longitude = i.getDoubleExtra("longitude", -1);
+//        latitude = i.getDoubleExtra("latitude1", -1);
+//        longitude = i.getDoubleExtra("longitude1", -1);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -49,10 +49,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Your location!"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude),15));
+        LatLng sydney = new LatLng(-1.935762, 52.450478);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("You location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Your location!"));
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude),15));
     }
 }
