@@ -98,12 +98,13 @@
 
 
                     <Button
+                        android:id="@+id/btn_collect"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:gravity="center"
-                        android:background="@drawable/ic_unlike"
+                        android:background="@drawable/collect"
                         android:layout_marginRight="30dp"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginLeft="25dp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/ll_ri_rating"

@@ -71,9 +71,10 @@
                         android:text="1"
                         android:layout_marginLeft="10dp"/>
                     <Button
+                        android:id="@+id/btn_collect"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:background="@drawable/ic_unlike"
+                        android:background="@drawable/collect"
                         android:gravity="center"
                         android:layout_marginLeft="120dp"/>
                     <!--<ImageView-->
