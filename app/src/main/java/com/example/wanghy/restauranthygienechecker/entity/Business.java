@@ -15,6 +15,8 @@ public class Business implements Serializable{
     private String ratingValue;
     private String longitude;
     private String latitude;
+//    private String email;
+//    private String web;
 
     public Business(int bid, String businessName, String addressLine, String line, String phone, String distance, String ratingValue) {
         this.bid = bid;
@@ -23,6 +25,8 @@ public class Business implements Serializable{
         this.phone        = phone;
         this.distance     = distance;
         this.ratingValue  = ratingValue;
+//        this.email        = email;
+//        this.web          = web;
     }
 
     public int getBid() {
@@ -88,4 +92,22 @@ public class Business implements Serializable{
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
+
+//    public String getEmail() {
+//        return email;
+//    }
+
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    public String getweb() {
+//        return web;
+//    }
+//
+//    public void setweb(String web) {
+//        this.web = web;
+//    }
+
+
 }

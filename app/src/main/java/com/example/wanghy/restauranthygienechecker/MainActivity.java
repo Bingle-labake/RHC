@@ -40,6 +40,7 @@ import android.widget.Toast;
 import com.example.wanghy.restauranthygienechecker.common.FetchAddressIntentService;
 import com.example.wanghy.restauranthygienechecker.entity.BitmapCache;
 import com.example.wanghy.restauranthygienechecker.common.Consts;
+import com.example.wanghy.restauranthygienechecker.entity.Business;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import android.location.Geocoder;
@@ -55,6 +56,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity
         , ConnectionCallbacks
         , OnConnectionFailedListener {
     private final String TAG = "MainActivity";
+    Fragment fragment = null;
+
 
 
     private Location mLastLocation;
@@ -90,8 +94,17 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                SimpleSearchFragment fragment = (SimpleSearchFragment) MainActivity.this.fragment;
+                intent.putExtra("longitude",fragment.getAdapter().getEst(0).getLongitude());
+                intent.putExtra("latitude", fragment.getAdapter().getEst(0).getLatitude());
+                List<Business> list = fragment.getAdapter().getList();
+                intent.putExtra("latitude1", fragment.getAdapter().getEst(0).getLatitude());
+                intent.putExtra("latitude1", fragment.getAdapter().getEst(0).getLatitude());
+                startActivity(intent);
+
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
 
@@ -161,7 +174,6 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Fragment fragment = null;
 
         if (id == R.id.nav_simple_search) {
             fragment = new SimpleSearchFragment();
@@ -226,6 +238,10 @@ public class MainActivity extends AppCompatActivity
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
+
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
             Log.i("MapsActivity", "buildGoogleApiClient-->checkSelfPermission.");
             Toast.makeText(this, R.string.no_geocoder_available, Toast.LENGTH_LONG).show();
             return;

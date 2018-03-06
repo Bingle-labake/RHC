@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.wanghy.restauranthygienechecker.R;
@@ -157,6 +158,9 @@ public class BusinessListAdapter extends BaseAdapter {
         LinearLayout ratingimage;
     }
 
+    public List<Business> getList(){
+        return list;
+    }
     class ImageTask extends AsyncTask<String, Void, BitmapDrawable> {
 
         private String imageUrl;

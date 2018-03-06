@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class Authorities implements Serializable{
     private String id = "";
     private int pageNumber = 1;
-    private int pageSize   = 10;
+    private int pageSize   = 15;
 
     public Authorities() {
     }

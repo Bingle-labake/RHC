@@ -87,11 +87,14 @@ public class SimpleSearchFragment extends Fragment {
     private SimpleDraweeView volley_imageNet;
     private TextView volley_result;
     private EditText simple_search_input;
-    private double longitude = 0.1;
-    private double latitude = 51.5;
+    private double longitude = -1.9;
+    private double latitude = 52.5;
     BusinessListAdapter adapter;
     private final String TAG = "SimpleSearchFragment";
 
+    public BusinessListAdapter getAdapter(){
+        return adapter;
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -141,12 +144,13 @@ public class SimpleSearchFragment extends Fragment {
     }
 
 
+
     private void reLoadData() {
         String address = "Aster House";//定位获取地址
         Establishment establishment = new Establishment(longitude, latitude, 15);
         get(establishment);
 
-//        String lngandlat = getLngAndLat(SimpleSearchFragment.this.getContext());
+        String lngandlat = getLngAndLat(SimpleSearchFragment.this.getContext());
 //        Log.e(TAG, "longitude and latitude: " + lngandlat + "\n");
     }
 
@@ -417,7 +421,7 @@ public class SimpleSearchFragment extends Fragment {
     private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            Toast.makeText(SimpleSearchFragment.this.getActivity(), "onLocationChanged函数被触发！", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(SimpleSearchFragment.this.getActivity(), "onLocationChanged函数被触发！", Toast.LENGTH_SHORT).show();
             Log.i(TAG, "时间：" + location.getTime());
             Log.i(TAG, "经度：" + location.getLongitude());
             Log.i(TAG, "纬度：" + location.getLatitude());

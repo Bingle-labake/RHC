@@ -20,8 +20,8 @@ public class Establishment implements Serializable{
     private String sortOptionKey = "";
     private double longitude = 0.0;
     private double latitude  = 0.0;
-    private int pageNumber = 1;
-    private int pageSize   = 10;
+    private int pageNumber = 5;
+    private int pageSize   = 15;
     private int maxDistanceLimit = 15;
 
     public Establishment() {
