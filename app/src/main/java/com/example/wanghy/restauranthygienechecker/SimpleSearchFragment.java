@@ -134,19 +134,6 @@ public class SimpleSearchFragment extends Fragment {
 //            }
 //        });
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(searchlist != null) {
-                    Intent ii = new Intent(SimpleSearchFragment.this.getContext(), MapsActivity.class);
-                    SimpleSearchFragment.this.getContext().startActivity(ii);
-                }
-
-            }
-        });
-
-
         simple_search_btn = (Button) view.findViewById(R.id.simple_search_btn);
         simple_search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
