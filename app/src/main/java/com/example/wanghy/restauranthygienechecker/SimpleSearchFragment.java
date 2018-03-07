@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ import com.example.wanghy.restauranthygienechecker.common.StringRequestWithFood;
 import com.example.wanghy.restauranthygienechecker.entity.BitmapCache;
 import com.example.wanghy.restauranthygienechecker.entity.Business;
 import com.example.wanghy.restauranthygienechecker.entity.Establishment;
+import com.example.wanghy.restauranthygienechecker.entity.SearchList;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import android.location.Location;
@@ -91,6 +93,7 @@ public class SimpleSearchFragment extends Fragment {
     private double latitude = 52.5;
     BusinessListAdapter adapter;
     private final String TAG = "SimpleSearchFragment";
+    List<Business> searchlist = null;
 
     public BusinessListAdapter getAdapter(){
         return adapter;
@@ -131,6 +134,21 @@ public class SimpleSearchFragment extends Fragment {
 //            }
 //        });
 
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(searchlist != null) {
+                    SearchList searchList = new SearchList(searchlist);
+                    Intent ii = new Intent(SimpleSearchFragment.this.getContext(), MapsActivity.class);
+                    ii.putExtra("search_list", searchList );
+                    SimpleSearchFragment.this.getContext().startActivity(ii);
+                }
+
+            }
+        });
+
+
         simple_search_btn = (Button) view.findViewById(R.id.simple_search_btn);
         simple_search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +179,7 @@ public class SimpleSearchFragment extends Fragment {
             switch (msg.what) {
                 case 0:
                     List<Business> list = (List<Business>) msg.obj;
+                    searchlist = list;
                     adapter = new BusinessListAdapter(list);
                     lv.setAdapter(adapter);
 

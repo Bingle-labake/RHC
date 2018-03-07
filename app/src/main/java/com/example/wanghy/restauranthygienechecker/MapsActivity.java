@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.wanghy.restauranthygienechecker.entity.Business;
+import com.example.wanghy.restauranthygienechecker.entity.SearchList;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,6 +23,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
         Intent i = getIntent();
+        SearchList searchList = (SearchList) i.getSerializableExtra("searchList");
 //        latitude = i.getDoubleExtra("latitude", -1);
 //        longitude = i.getDoubleExtra("longitude", -1);
 //        latitude = i.getDoubleExtra("latitude1", -1);
