@@ -1,7 +1,7 @@
 package com.example.wanghy.restauranthygienechecker.common;
 
 /**
- * Created by coollive on 18/3/3.
+ * Created by wanghy on 18/3/3.
  */
 
 /**

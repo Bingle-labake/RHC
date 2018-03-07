@@ -1,8 +1,11 @@
 package com.example.wanghy.restauranthygienechecker;
 
 import android.Manifest;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -78,6 +81,7 @@ public class SimpleSearchFragment extends Fragment {
     private ListView lv;
     RequestQueue requestQueue;
 
+
     private Button volley_get;
     private Button volley_post;
     private Button volley_json;
@@ -104,6 +108,9 @@ public class SimpleSearchFragment extends Fragment {
         myView = inflater.inflate(R.layout.simple_search, null);
         initViews(myView);
         return myView;
+
+
+
     }
 
     private void initViews(View view) {

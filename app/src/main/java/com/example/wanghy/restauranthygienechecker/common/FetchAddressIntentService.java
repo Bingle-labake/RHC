@@ -1,7 +1,7 @@
 package com.example.wanghy.restauranthygienechecker.common;
 
 /**
- * Created by coollive on 18/3/3.
+ * Created by wanghy on 18/3/3.
  */
 
 import android.app.IntentService;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by lyd on 2017/1/7.
+ *
  *
  * @Description:地址查找服务
  */

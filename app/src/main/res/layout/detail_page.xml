@@ -74,7 +74,7 @@
                         android:id="@+id/btn_collect"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-                        android:background="@drawable/collect"
+                        android:background="@drawable/ic_unlike"
                         android:gravity="center"
                         android:layout_marginLeft="120dp"/>
                     <!--<ImageView-->
@@ -178,6 +178,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <!--<com.google.android.gms.maps.MapView-->
+                        <!--android:id="@+id/mapView"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="300dp" />-->
                     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:tools="http://schemas.android.com/tools"
                         android:id="@+id/mapView"
@@ -197,6 +201,8 @@
                 </LinearLayout>
                 <!--map end-->
             </LinearLayout>
+
+
 
 
         </ScrollView>

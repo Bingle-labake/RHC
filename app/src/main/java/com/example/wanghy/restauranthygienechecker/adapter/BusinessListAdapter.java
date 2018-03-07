@@ -1,10 +1,12 @@
 package com.example.wanghy.restauranthygienechecker.adapter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.support.v4.util.LruCache;
 
 import com.example.wanghy.restauranthygienechecker.DetailActivity;
+import com.example.wanghy.restauranthygienechecker.Library;
 import com.example.wanghy.restauranthygienechecker.R;
 import com.example.wanghy.restauranthygienechecker.entity.Business;
 
@@ -32,7 +35,7 @@ import com.example.wanghy.restauranthygienechecker.entity.Business;
 import com.example.wanghy.restauranthygienechecker.entity.Establishment;
 
 /**
- * Created by coollive on 18/3/3.
+ * Created by wanghy on 18/3/3.
  */
 
 public class BusinessListAdapter extends BaseAdapter {
@@ -40,6 +43,10 @@ public class BusinessListAdapter extends BaseAdapter {
     private List<Business> list;
     private ListView listview;
     private LruCache<String, BitmapDrawable> mImageCache;
+
+
+
+
 
     public BusinessListAdapter(List<Business> list) {
         super();

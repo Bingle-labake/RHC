@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by coollive on 18/3/3.
+ * Created by wanghy on 18/3/3.
  */
 
 public class SearchList implements Serializable{

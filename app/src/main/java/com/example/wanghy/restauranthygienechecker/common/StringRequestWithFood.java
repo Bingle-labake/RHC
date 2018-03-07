@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Created by coollive on 18/3/4.
+ * Created by wanghy on 18/3/4.
  */
 
 public class StringRequestWithFood extends StringRequest {

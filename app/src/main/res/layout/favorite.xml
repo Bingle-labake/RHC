@@ -22,17 +22,13 @@
             android:textSize="24dp"
             android:layout_marginTop="15dp"
             android:gravity="center_horizontal"/>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="25dp"
-            android:layout_gravity="center_horizontal">
+
             <ListView
                 android:id="@+id/listViewF"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </ListView>
-        </ScrollView>
+
     </LinearLayout>
 
 </FrameLayout>

@@ -5,7 +5,7 @@ import com.example.wanghy.restauranthygienechecker.common.Consts;
 import java.io.Serializable;
 
 /**
- * Created by coollive on 18/3/3.
+ * Created by wanghy on 18/3/3.
  */
 
 public class Establishment implements Serializable{

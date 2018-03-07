@@ -1,22 +1,42 @@
 package com.example.wanghy.restauranthygienechecker.entity;
 
 import java.io.Serializable;
-
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 /**
- * Created by coollive on 18/3/3.
+ * Created by wanghy on 18/3/3.
  */
 
-public class Business implements Serializable{
-    private int bid;
+@Entity(tableName = "Business")
+public class Business implements Serializable {
+    @PrimaryKey
+    @NonNull private int bid;
+    @ColumnInfo(name = "businessName")
     private String businessName;
     private String addressLine;
     private String phone;
     private String distance;
+
+    @ColumnInfo(name = "ratingValue")
     private String ratingValue;
     private String longitude;
     private String latitude;
 //    private String email;
 //    private String web;
+
+    public Business(int bid, String businessName, String ratingValue){
+        this.bid = bid;
+        this.businessName = businessName;
+        this.ratingValue = ratingValue;
+        this.longitude= "";
+        this.latitude= "";
+        this.businessName= "";
+        this.addressLine= "";
+        this.phone= "";
+        this.distance= "";
+    }
 
     public Business(int bid, String businessName, String addressLine, String line, String phone, String distance, String ratingValue) {
         this.bid = bid;
