@@ -84,6 +84,7 @@ public class LocationSearchFragment extends Fragment {
     private final String TAG = "LocationSearchFragment";
     private Button local_search_btn;
     private EditText local_search_input;
+    private List<Business> searchlist = null;
 
     public BusinessListAdapter getAdapter(){
         return adapter;
@@ -120,6 +121,7 @@ public class LocationSearchFragment extends Fragment {
 //        Log.e(TAG, "longitude and latitude: " + lngandlat + "\n");
     }
 
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -127,6 +129,8 @@ public class LocationSearchFragment extends Fragment {
             switch (msg.what) {
                 case 1:
                     List<Business> list = (List<Business>) msg.obj;
+                    searchlist = list;
+                    MyApplication.getInstance().setSearchlist(list);
                     adapter = new BusinessListAdapter(list);
                     lv.setAdapter(adapter);
 
@@ -366,6 +370,8 @@ public class LocationSearchFragment extends Fragment {
                 longitude = location.getLongitude();
             }
         }
+        MyApplication.getInstance().setLatitude(latitude);
+        MyApplication.getInstance().setLatitude(longitude);
         return longitude + "," + latitude;
     }
 
@@ -383,6 +389,8 @@ public class LocationSearchFragment extends Fragment {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
         }
+        MyApplication.getInstance().setLatitude(latitude);
+        MyApplication.getInstance().setLatitude(longitude);
         return longitude + "," + latitude;
     }
 

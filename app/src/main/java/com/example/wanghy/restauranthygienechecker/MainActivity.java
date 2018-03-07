@@ -95,12 +95,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                SimpleSearchFragment fragment = (SimpleSearchFragment) MainActivity.this.fragment;
-                intent.putExtra("longitude",fragment.getAdapter().getEst(0).getLongitude());
-                intent.putExtra("latitude", fragment.getAdapter().getEst(0).getLatitude());
-                List<Business> list = fragment.getAdapter().getList();
-                intent.putExtra("latitude1", fragment.getAdapter().getEst(0).getLatitude());
-                intent.putExtra("latitude1", fragment.getAdapter().getEst(0).getLatitude());
                 startActivity(intent);
 
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

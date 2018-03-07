@@ -139,9 +139,7 @@ public class SimpleSearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(searchlist != null) {
-                    SearchList searchList = new SearchList(searchlist);
                     Intent ii = new Intent(SimpleSearchFragment.this.getContext(), MapsActivity.class);
-                    ii.putExtra("search_list", searchList );
                     SimpleSearchFragment.this.getContext().startActivity(ii);
                 }
 
@@ -180,6 +178,7 @@ public class SimpleSearchFragment extends Fragment {
                 case 0:
                     List<Business> list = (List<Business>) msg.obj;
                     searchlist = list;
+                    MyApplication.getInstance().setSearchlist(list);
                     adapter = new BusinessListAdapter(list);
                     lv.setAdapter(adapter);
 
@@ -417,6 +416,8 @@ public class SimpleSearchFragment extends Fragment {
                 longitude = location.getLongitude();
             }
         }
+        MyApplication.getInstance().setLatitude(latitude);
+        MyApplication.getInstance().setLatitude(longitude);
         return longitude + "," + latitude;
     }
 
@@ -434,6 +435,8 @@ public class SimpleSearchFragment extends Fragment {
             latitude = location.getLatitude();
             longitude = location.getLongitude();
         }
+        MyApplication.getInstance().setLatitude(latitude);
+        MyApplication.getInstance().setLatitude(longitude);
         return longitude + "," + latitude;
     }
 

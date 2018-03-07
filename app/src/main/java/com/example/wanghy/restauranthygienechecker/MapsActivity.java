@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.wanghy.restauranthygienechecker.entity.Business;
-import com.example.wanghy.restauranthygienechecker.entity.SearchList;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,20 +13,20 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private double latitude = 0,longitude = 0;
+    List<Business> searchList = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps2);
-        Intent i = getIntent();
-        SearchList searchList = (SearchList) i.getSerializableExtra("searchList");
-//        latitude = i.getDoubleExtra("latitude", -1);
-//        longitude = i.getDoubleExtra("longitude", -1);
-//        latitude = i.getDoubleExtra("latitude1", -1);
-//        longitude = i.getDoubleExtra("longitude1", -1);
+        searchList = MyApplication.getInstance().getSearchlist();
+        latitude = MyApplication.getInstance().getLatitude();
+        longitude = MyApplication.getInstance().getLongitude();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
