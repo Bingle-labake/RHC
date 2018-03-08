@@ -26,10 +26,10 @@ public class Business implements Serializable {
 //    private String email;
 //    private String web;
 
-    public Business(int bid, String businessName, String ratingValue){
-        this.bid = bid;
-        this.businessName = businessName;
-        this.ratingValue = ratingValue;
+    public Business(){
+//        this.bid = bid;
+//        this.businessName = businessName;
+//        this.ratingValue = ratingValue;
         this.longitude= "";
         this.latitude= "";
         this.businessName= "";

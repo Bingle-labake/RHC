@@ -33,25 +33,47 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
 
     private SharedPreferences sharedPref;
     private Library db;
+    private boolean already;
 
 
 
-    @Override
+
+    public void info(){
+
+        Intent i = getIntent();
+        final Business est = (Business) i.getSerializableExtra("establishment");
+        final int bid = est.getBid();
+
+        Business pp =db.BusinessDao().searchBusinessById(bid);
+        if ( pp == null || pp.equals("")  ){
+
+            already=false;
+
+        }else {
+
+
+            already=true;
+
+        }
+    }
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_page);
 
         Intent i = getIntent();
         final Business est = (Business) i.getSerializableExtra("establishment");
-
+        final int bid = getIntent().getIntExtra("bID", 0);
         TextView ratingValue = (TextView) findViewById(R.id.ratingValue);
         ratingValue.setText(est.getRatingValue()+"");
         TextView addressLine = (TextView) findViewById(R.id.addressLine);
         addressLine.setText(est.getAddressLine()+"");
         TextView phone = (TextView) findViewById(R.id.phone);
         phone.setText(est.getPhone()+"");
+
         final TextView businessName = (TextView) findViewById(R.id.businessName);
         businessName.setText(est.getBusinessName()+"");
+
 //        TextView distance = (TextView) findViewById(R.id.distance);
 //        distance.setText(est.getDistance()+"");
 //        TextView email = (TextView) findViewById(R.id.tv_email);
@@ -76,19 +98,54 @@ public class DetailActivity extends AppCompatActivity implements OnMapReadyCallb
         db = Room.databaseBuilder(getApplicationContext(),Library.class, "business-library").allowMainThreadQueries().build();
 
 
+
+
+
+        if (already == true) {
+
+            like.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.ic_unlike));
+
+
+        }
+
+
+
         like.setOnClickListener(new View.OnClickListener(){
 
-            public void onClick(View v){
-                Log.v("MyTag","onClick");
-                db.BusinessDao().insertBusiness(est);
-                like.setBackgroundResource(R.drawable.ic_like);
+            public void onClick(View v) {
+
+                if (already == false) {
+
+
+                    like.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.ic_unlike));
+                    db.BusinessDao().insertBusiness(est);
+                    already = true;
+
+
+                } else {
+
+
+                    like.setBackground(getApplicationContext().getResources().getDrawable(R.drawable.ic_like));
+                    db.BusinessDao().deleteBussinessById(bid);
+                    already = false;
+
+
+                }
+
+
             }
+
+//            public void onClick(View v){
+//                Log.v("MyTag","onClick");
+//                db.BusinessDao().insertBusiness(est);
+//                like.setBackgroundResource(R.drawable.ic_like);
+//            }
         });
 
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Your location!"));
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Here is location!"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude),15));
     }
 }

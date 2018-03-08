@@ -15,8 +15,11 @@ public interface BusinessDao {
     void insertBusiness(Business business);
 
     @Query("SELECT * FROM Business WHERE bid=:bid LIMIT 1")
-    Business retrieveBusinessByISBN(String bid);
+    Business searchBusinessById(int bid);
 
     @Query("SELECT * FROM Business")
     List<Business> getAll();
+
+    @Query("DELETE  FROM business WHERE bid=:bid")
+    void deleteBussinessById(int bid);
 }
